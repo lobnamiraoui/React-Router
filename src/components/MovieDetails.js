@@ -5,21 +5,23 @@ const MovieDetails = ({ movies }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  if (!movies || movies.length === 0) {
-    return <div>Chargement des films...</div>;
-  }
-
+  // Recherche du film avec l'ID
   const movie = movies.find((movie) => movie.id === parseInt(id));
 
+  // Si aucun film n'est trouvé
   if (!movie) {
     return <div>Film non trouvé.</div>;
   }
 
   return (
+    <div>
+    <button onClick={() => navigate(-1)}>Retour</button>
     <div className="movie-details">
-      <button onClick={() => navigate(-1)}>← Retour</button>
+      
       <h1>{movie.title}</h1>
-      <img src={movie.poster} alt={movie.title} />
+      
+      {/* Affichage de l'image */}
+      <img src={movie.poster} alt={movie.title} className="movie-poster" />
       <p>{movie.description}</p>
       <h3>Regarder la bande-annonce :</h3>
       <iframe
@@ -31,6 +33,7 @@ const MovieDetails = ({ movies }) => {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       ></iframe>
+    </div>
     </div>
   );
 };
